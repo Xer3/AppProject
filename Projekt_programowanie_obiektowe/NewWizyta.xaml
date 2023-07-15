@@ -1,0 +1,66 @@
+﻿<Window x:Class="Projekt_programowanie_obiektowe.NewWizyta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projekt_programowanie_obiektowe"
+        mc:Ignorable="d"
+        Title="Przychodnia Nowa Wizyta
+        " Height="308.468" Width="678.778" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="wizytyViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Wizyty}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid Background="Blue">
+        <Grid x:Name="grid1" DataContext="{StaticResource wizytyViewSource}" HorizontalAlignment="Left" Margin="34,48,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="data wizyty:" Foreground="White" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <DatePicker x:Name="data_wizytyDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" SelectedDate="{Binding data_wizyty, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+            <Label Content="Imie i nazwisko lekarza:" Foreground="White" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <Label Content="pesel pacjenta:" Foreground="White" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+            <ComboBox x:Name="nr_lekarzaComboBox" Grid.Column="1" HorizontalAlignment="Left" Margin="2.6,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding imie_lekarza}"/>
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding nazwisko_lekarza}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox x:Name="pesel_pacjentaComboBox" Grid.Column="1" HorizontalAlignment="Left" Margin="2.8,6,0,0" Grid.Row="3" VerticalAlignment="Top" Width="120">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding pesel_pacjenta}"/>
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding imie_pacjenta}"/>
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding nazwisko_pacjenta}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <Button Content="Zapisz" Background="White" HorizontalAlignment="Left" Margin="68,176,0,0" VerticalAlignment="Top" Width="126" Height="30" Click="btnZapiszWizyty_Click"/>
+        <DataGrid x:Name="grdChorobyAddWizyty" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch"  Height="269" Margin="325,0,0,0" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True" Width="337">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF0000"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Green"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nr Choroby" Binding="{Binding nr_choroby}"/>
+                <DataGridTextColumn Header="Opis Choroby" Binding="{Binding opis_choroby}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
